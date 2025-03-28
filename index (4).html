@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME WILL TELL STUDIO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        header {
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            width: 300px;
+            height: 150px;
+            margin: 0 auto;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .description {
+            margin: 20px auto;
+            max-width: 600px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .social-icons {
+            margin: 20px 0;
+        }
+        
+        .social-icons a {
+            color: #000;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+        
+        nav {
+            margin: 30px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: 1px solid #000;
+            border-radius: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background: #000;
+            color: #fff;
+        }
+        
+        .content-section {
+            display: none;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 900px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .mission {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-member img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-info div {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            width: 25px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            height: 200px;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .portfolio-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-item:hover .overlay {
+            transform: translateY(0);
+        }
+        
+        .edit-btn {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #000;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        
+        .admin-panel button {
+            background: white;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-panel" id="adminPanel" style="display: none;">
+        <button id="editLogoBtn">Изменить лого</button>
+        <button id="editDescBtn">Изменить описание</button>
+        <button id="saveChangesBtn">Сохранить</button>
+    </div>
+    
+    <header>
+        <div class="logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgZQRIAAH1U1v5AAAAAElFTkSuQmCC" alt="TIME WILL TELL STUDIO" id="company-logo">
+        </div>
+        
+        <div class="description">
+            <p id="company-description">Кинопроизводственная студия TIME WILL TELL STUDIO специализируется на создании качественного визуального контента, организации съемочного процесса и постпродакшене.</p>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-vk"></i></a>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a class="nav-link active" data-section="about">О студии</a></li>
+            <li><a class="nav-link" data-section="services">Услуги</a></li>
+            <li><a class="nav-link" data-section="portfolio">Портфолио</a></li>
+            <li><a class="nav-link" data-section="contacts">Контакты</a></li>
+            <li><a class="nav-link" data-section="team">Команда</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Секция "О студии" -->
+    <section class="content-section mission active" id="about-section">
+        <h2>О студии TIME WILL TELL</h2>
+        <p>Мы - современная кинопроизводственная студия, создающая уникальный визуальный контент. Наша команда профессионалов работает над проектами различного масштаба - от рекламных роликов до полнометражных фильмов.</p>
+        <p>Наш подход сочетает в себе творческое видение и техническое совершенство, что позволяет создавать продукты высочайшего качества.</p>
+    </section>
+    
+    <!-- Секция "Услуги" -->
+    <section class="content-section" id="services-section">
+        <h2>Наши услуги</h2>
+        <div class="services-list" style="text-align: left; max-width: 700px; margin: 20px auto;">
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 3px solid #000;">
+                <h3>Полный цикл кинопроизводства</h3>
+                <p>От разработки концепции до финального монтажа - мы берем на себя все этапы создания фильма.</p>
+            </div>
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 3px solid #000;">
+                <h3>Постпродакшн</h3>
+                <p>Профессиональный монтаж, цветокоррекция, звукорежиссура и визуальные эффекты.</p>
+            </div>
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 3px solid #000;">
+                <h3>Аренда оборудования</h3>
+                <p>Предоставляем в аренду профессиональное съемочное оборудование и студийные помещения.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Секция "Портфолио" -->
+    <section class="content-section" id="portfolio-section">
+        <h2>Наши работы</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/400x300" alt="Проект 1">
+                <div class="overlay">
+                    <h3>Короткометражный фильм "Рассвет"</h3>
+                    <p>2023 год</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/400x300" alt="Проект 2">
+                <div class="overlay">
+                    <h3>Рекламный ролик для бренда X</h3>
+                    <p>2022 год</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/400x300" alt="Проект 3">
+                <div class="overlay">
+                    <h3>Музыкальный клип "Горизонт"</h3>
+                    <p>2021 год</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/400x300" alt="Проект 4">
+                <div class="overlay">
+                    <h3>Документальный фильм "Городские истории"</h3>
+                    <p>2020 год</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Секция "Контакты" -->
+    <section class="content-section" id="contacts-section">
+        <h2>Контакты</h2>
+        <div class="contact-info">
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Адрес:</strong>
+                    <p>г. Москва, ул. Кинематографическая, д. 15</p>
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-phone"></i>
+                <div>
+                    <strong>Телефон:</strong>
+                    <p>+7 (495) 123-45-67</p>
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email:</strong>
+                    <p>info@timewilltell.studio</p>
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Часы работы:</strong>
+                    <p>Пн-Пт: 10:00 - 19:00</p>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 30px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.373789924841!2d37.61763331593095!3d55.75199998055136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5a738fa419%3A0x7c347d506f52311f!2z0JrRgNCw0YHQvdC-0LTQsNGALCDQnNC-0YHQutCy0LA!5e0!3m2!1sru!2sru!4v1620000000000!5m2!1sru!2sru" width="100%" height="300" style="border:0; border-radius: 5px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+    
+    <!-- Секция "Команда" -->
+    <section class="content-section" id="team-section">
+        <h2>Наша команда</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200x250" alt="Алексей Смирнов">
+                <h3>Алексей Смирнов</h3>
+                <p>Режиссер-постановщик</p>
+                <p>Опыт работы: 12 лет</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200x250" alt="Елена Волкова">
+                <h3>Елена Волкова</h3>
+                <p>Оператор-постановщик</p>
+                <p>Опыт работы: 8 лет</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200x250" alt="Дмитрий Козлов">
+                <h3>Дмитрий Козлов</h3>
+                <p>Продюсер</p>
+                <p>Опыт работы: 15 лет</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200x250" alt="Ольга Новикова">
+                <h3>Ольга Новикова</h3>
+                <p>Редактор/Сценарист</p>
+                <p>Опыт работы: 10 лет</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 TIME WILL TELL STUDIO. Все права защищены.</p>
+        <p style="margin-top: 10px; font-size: 12px;">Сайт разработан специально для студии</p>
+    </footer>
+
+    <script>
+        // Переключение между разделами
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Удаляем активный класс у всех ссылок и секций
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+                
+                // Добавляем активный класс к текущей ссылке
+                this.classList.add('active');
+                
+                // Показываем соответствующую секцию
+                const sectionId = this.getAttribute('data-section') + '-section';
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Прокрутка к началу секции
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        
+        // Админ-панель (для демонстрации)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                document.getElementById('adminPanel').style.display = 
+                    document.getElementById('adminPanel').style.display === 'none' ? 'block' : 'none';
+            }
+        });
+        
+        // Функции для редактирования контента
+        document.getElementById('editLogoBtn').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = event => {
+                        document.getElementById('company-logo').src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        });
+        
+        document.getElementById('editDescBtn').addEventListener('click', function() {
+            const desc = document.getElementById('company-description');
+            const currentText = desc.textContent;
+            desc.innerHTML = `<textarea style="width: 100%; min-height: 100px;">${currentText}</textarea>`;
+        });
+        
+        document.getElementById('saveChangesBtn').addEventListener('click', function() {
+            alert('Изменения сохранены (в демо-версии изменения не сохраняются после перезагрузки)');
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
